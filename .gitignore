@@ -1,0 +1,7 @@
+*.iml
+
+.idea/*
+
+*.tfstate
+*.tfstate.*
+.terraform/*
