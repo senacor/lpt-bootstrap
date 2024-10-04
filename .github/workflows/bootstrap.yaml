@@ -1,0 +1,14 @@
+on: # yamllint disable-line rule:truthy
+  workflow_dispatch:
+    inputs:
+      apply:
+        type: string
+        default: ""
+        description: 'Provide "apply!" if you actually want to apply the terraform plan on the selected environment.'
+      environment:
+        type: choice
+        default: test
+        description: Environment
+        required: true
+        options:
+          - dev
