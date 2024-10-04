@@ -18,7 +18,7 @@ terraform {
 
 provider "google" {
   project = var.project_id
-  region  = "eu-west1"
+  region  = var.gcp_region
 }
 
 provider "github" {
