@@ -2,7 +2,7 @@ terraform {
   required_providers {
     google = {
       source  = "hashicorp/google"
-      version = "6.4.0"
+      version = "~> 6"
     }
     github = {
       source  = "integrations/github"
@@ -18,7 +18,7 @@ terraform {
 
 provider "google" {
   project = var.project_id
-  region  = "eu-west1"
+  region  = var.region
 }
 
 provider "github" {

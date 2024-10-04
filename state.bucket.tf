@@ -16,6 +16,11 @@ module "state_service_account" {
   name       = "terraform-state-sa"
 
   project_roles = [
-#     "roles/storage.admin"
+    "roles/storage.admin"
   ]
+}
+
+resource "google_service_account_key" "state_service_account_key" {
+  service_account_id = module.state_service_account.id
+  public_key_type    = "TYPE_X509_PEM_FILE"
 }
