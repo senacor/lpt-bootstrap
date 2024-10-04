@@ -4,16 +4,15 @@ variable "project_id" {
   type        = string
 }
 
-variable "repository_id" {
-  description = "Repository id"
+variable "repository_name" {
+  description = "Repository Name (Part)"
   type        = string
 }
 
-
-variable "database_name" {
-  description = "Database name"
+variable "repository_desc" {
+  description = "Repository Description"
   type        = string
-  default = "lpt_showcase"
+  default     = ""
 }
 
 variable "gcp_region" {
@@ -22,3 +21,13 @@ variable "gcp_region" {
   default = "europe-west1"
 }
 
+variable "repo_key_name" {
+  description = "Repository Description"
+  type        = string
+}
+
+variable "repo_format" {
+  description = "Repository Description"
+  type        = string
+  default = "DOCKER"
+}
