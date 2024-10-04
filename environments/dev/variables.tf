@@ -9,7 +9,7 @@ variable "project_id" {
 }
 
 variable "gcp_region" {
-  description = "GCP region to create resources in"
-  type = string
-  default = "europe-west1"
+  description = "Region the infrastructure should be deployed in"
+  type        = string
+  default     = "europe-west1"
 }
