@@ -64,7 +64,7 @@ jobs:
           GH_API_TOKEN: ${{ secrets.API_ACCESS_TOKEN }}
         run: |
           terraform -chdir="$TF_WORK_DIR" plan -input=false -out=tfplan \
-            -var-file "environments/dev.tfvars" \
+            -var-file "../../environments/dev.tfvars" \
             -var "github_token=$GH_API_TOKEN" \
             -var "project_id=$PROJECT_ID"
       - name: terraform apply
@@ -101,7 +101,7 @@ jobs:
           GH_API_TOKEN: ${{ secrets.API_ACCESS_TOKEN }}
         run: |
           terraform -chdir="$TF_WORK_DIR" plan -input=false -out=tfplan \
-            -var-file "environments/dev.tfvars" \
+            -var-file "../../environments/dev.tfvars" \
             -var "github_token=$GH_API_TOKEN" \
             -var "project_id=$PROJECT_ID"
       - name: terraform apply
@@ -138,7 +138,7 @@ jobs:
           GH_API_TOKEN: ${{ secrets.API_ACCESS_TOKEN }}
         run: |
           terraform -chdir="$TF_WORK_DIR" plan -input=false -out=tfplan \
-            -var-file "environments/dev.tfvars" \
+            -var-file "../../environments/dev.tfvars" \
             -var "github_token=$GH_API_TOKEN" \
             -var "project_id=$PROJECT_ID"
       - name: terraform apply
