@@ -9,3 +9,8 @@ module "application_service_account" {
     "roles/iam.workloadIdentityUser"
   ]
 }
+
+resource "google_service_account_key" "state_service_account_key" {
+  service_account_id = module.application_service_account.id
+  public_key_type    = "TYPE_X509_PEM_FILE"
+}

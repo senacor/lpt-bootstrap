@@ -29,7 +29,7 @@ resource "google_kms_crypto_key" "key" {
 
 data "google_iam_policy" "cryptoKeyAccess" {
   binding {
-    role = "roles/cloudkms.cryptoKeyEncrypter"
+    role = "roles/cloudkms.cryptoKeyEncrypterDecrypter"
 
     members = [
       "serviceAccount:${var.key_member_sa}",
