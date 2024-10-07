@@ -12,7 +12,7 @@ terraform {
 
   backend "gcs" {
     bucket = "lpt-schulung-bucket-tfstate"
-    prefix = "bootstrap"
+    prefix = "github_and_co"
   }
 }
 

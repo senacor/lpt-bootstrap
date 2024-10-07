@@ -10,6 +10,8 @@ module "wif_lpt_bootstrap" {
   version    = "~> 1.0.0"
   project_id = var.project_id
   pool_name  = module.github_wif.pool_name
-  account_id = module.state_service_account.id
-  repository = github_repository.bootstrap.full_name
+  account_id = var.state_service_account_id
+  repository = var.gh_repository_full_name
+  #account_id = module.state_service_account.id
+  #repository = github_repository.bootstrap.full_name
 }

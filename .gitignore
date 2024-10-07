@@ -6,4 +6,3 @@
 *.tfstate.*
 .terraform/*
 tfplan
-*.tfvars

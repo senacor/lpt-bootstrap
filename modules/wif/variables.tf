@@ -4,15 +4,14 @@ variable "project_id" {
   type        = string
 }
 
-variable "database_name" {
+variable "gh_repository_full_name" {
   description = "Database name"
   type        = string
   default = "lpt_showcase"
 }
 
-variable "gcp_region" {
-  description = "GCP region"
+variable "state_service_account_id" {
+  description = "Id of TF state service account"
   type        = string
-  default = "europe-west1"
 }
 

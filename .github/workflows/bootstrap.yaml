@@ -10,12 +10,20 @@ on: # yamllint disable-line rule:truthy
         description: 'Provide "apply!" if you actually want to apply the terraform plan on the selected environment.'
       environment:
         type: choice
-        default: test
-        description: Environment
+        default: dev
+        description: 'Which environment to target?'
         required: true
         options:
-          # main (and feature) branch deployments in respective EKS-namespace/s in non-prod AWS account
           - dev
+      scope:
+        type: choice
+        default: application_infrastructure
+        description: 'Which infrastructure scope to apply?'
+        required: true
+        options:
+          - github
+          - gke_and_state_bucket
+          - application_infrastructure
 
 defaults:
   run:
@@ -28,15 +36,14 @@ defaults:
     shell: bash --noprofile --norc -euo pipefail {0}
 
 jobs:
-
-  plan-apply-dev:
-    name: Plan and potentially apply for test
-    if: ${{ github.event.inputs.environment == 'dev' }}
+  plan-apply-github:
+    name: Plan and potentially apply for scope github
+    if: ${{ github.event.inputs.environment == 'dev' && github.event.inputs.scope == 'github'}}
     runs-on:
       - ubuntu-latest
     env:
-      TF_WORK_DIR: ./environments/dev
-
+      TF_WORK_DIR: ./scopes/github_and_co
+      #TF_STATE_FILE: '-> Handled by bucket backend prefix'
     permissions:
       contents: read
       id-token: write
@@ -49,15 +56,15 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
-
       - name: terraform init
-        run: terraform -chdir="$TF_WORK_DIR" init # -backend-config="key=$TF_STATE_FILE"
+        run: terraform -chdir="$TF_WORK_DIR" init
       - name: terraform plan
         env:
           PROJECT_ID: ${{ vars.GOOGLE_PROJECT_ID }}
           GH_API_TOKEN: ${{ secrets.API_ACCESS_TOKEN }}
         run: |
           terraform -chdir="$TF_WORK_DIR" plan -input=false -out=tfplan \
+            -var-file "environments/dev.tfvars" \
             -var "github_token=$GH_API_TOKEN" \
             -var "project_id=$PROJECT_ID"
       - name: terraform apply
@@ -65,3 +72,77 @@ jobs:
         run: |
           terraform -chdir="$TF_WORK_DIR" apply -input=false tfplan
           terraform output
+
+  plan-apply-gke:
+    name: Plan and potentially apply for scope github
+    if: ${{ github.event.inputs.environment == 'dev' && github.event.inputs.scope == 'gke_and_state_bucket'}}
+    runs-on:
+      - ubuntu-latest
+    env:
+      TF_WORK_DIR: ./scopes/gke_and_state_bucket
+      #TF_STATE_FILE: '-> Handled by bucket backend prefix'
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: 'google-github-actions/auth@v2'
+        with:
+          project_id: ${{ vars.GOOGLE_PROJECT_ID }}
+          credentials_json: ${{ secrets.AUTOMATION_SA_KEY_JSON }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+      - name: terraform init
+        run: terraform -chdir="$TF_WORK_DIR" init
+      - name: terraform plan
+        env:
+          PROJECT_ID: ${{ vars.GOOGLE_PROJECT_ID }}
+          GH_API_TOKEN: ${{ secrets.API_ACCESS_TOKEN }}
+        run: |
+          terraform -chdir="$TF_WORK_DIR" plan -input=false -out=tfplan \
+            -var-file "environments/dev.tfvars" \
+            -var "github_token=$GH_API_TOKEN" \
+            -var "project_id=$PROJECT_ID"
+      - name: terraform apply
+        if: ${{ github.event.inputs.apply == 'apply!' }}
+        run: |
+          terraform -chdir="$TF_WORK_DIR" apply -input=false tfplan
+          terraform output
+
+  plan-apply-application:
+    name: Plan and potentially apply for scope github
+    if: ${{ github.event.inputs.environment == 'dev' && github.event.inputs.scope == 'application_infrastructure'}}
+    runs-on:
+      - ubuntu-latest
+    env:
+      TF_WORK_DIR: ./scopes/application
+      #TF_STATE_FILE: '-> Handled by bucket backend prefix'
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: 'google-github-actions/auth@v2'
+        with:
+          project_id: ${{ vars.GOOGLE_PROJECT_ID }}
+          credentials_json: ${{ secrets.AUTOMATION_SA_KEY_JSON }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+      - name: terraform init
+        run: terraform -chdir="$TF_WORK_DIR" init
+      - name: terraform plan
+        env:
+          PROJECT_ID: ${{ vars.GOOGLE_PROJECT_ID }}
+          GH_API_TOKEN: ${{ secrets.API_ACCESS_TOKEN }}
+        run: |
+          terraform -chdir="$TF_WORK_DIR" plan -input=false -out=tfplan \
+            -var-file "environments/dev.tfvars" \
+            -var "github_token=$GH_API_TOKEN" \
+            -var "project_id=$PROJECT_ID"
+      - name: terraform apply
+        if: ${{ github.event.inputs.apply == 'apply!' }}
+        run: |
+          terraform -chdir="$TF_WORK_DIR" apply -input=false tfplan
+          terraform output  
