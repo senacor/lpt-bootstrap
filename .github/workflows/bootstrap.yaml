@@ -25,6 +25,8 @@ on: # yamllint disable-line rule:truthy
           - gke_and_state_bucket
           - application_infrastructure
 
+run-name: Bootstrapping ${{ inputs.scope }} for @${{ inputs.environment }}
+
 defaults:
   run:
     # This sets the default shell to bash with some debugging related options.
