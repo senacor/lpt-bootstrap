@@ -66,10 +66,16 @@ module "gke" {
   ip_range_services               = local.svc_range_name
   release_channel                 = "REGULAR"
   enable_vertical_pod_autoscaling = true
-  enable_private_endpoint         = true
+  enable_private_endpoint         = false
   enable_private_nodes            = true
   network_tags                    = [local.cluster_type]
   deletion_protection             = false
+  master_authorized_networks = [
+    {
+      cidr_block   = "93.211.11.162/32"
+      display_name = "PSI"
+    }
+  ]
 }
 
 resource "google_service_account_key" "gke_service_account_key" {

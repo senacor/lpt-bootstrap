@@ -45,3 +45,21 @@ resource "github_actions_secret" "state_bucket_access_private_key" {
   secret_name     = "STATE_BUCKET_ACCESS_PRIVATE_KEY"
   plaintext_value = google_service_account_key.state_service_account_key.private_key
 }
+
+resource "github_actions_secret" "state_bucket_access_wif_provider" {
+  repository      = github_repository.bootstrap.name
+  secret_name     = "STATE_BUCKET_ACCESS_WIF_PROVIDER"
+  plaintext_value = module.github_wif.provider_name
+}
+
+resource "github_actions_secret" "gcp_project_id" {
+  repository      = github_repository.bootstrap.name
+  secret_name     = "GCP_PROJECT_ID"
+  plaintext_value = var.project_id
+}
+
+resource "github_actions_secret" "state_service_account_id" {
+  repository      = github_repository.bootstrap.name
+  secret_name     = "STATE_SERVICE_ACCOUNT_ID"
+  plaintext_value = module.state_service_account.id
+}

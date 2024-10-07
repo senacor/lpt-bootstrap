@@ -17,4 +17,9 @@ resource "github_team_members" "lpt_developers_members" {
     username = data.github_membership.frudisch.username
     role     = "maintainer"
   }
+
+  members {
+    username = data.github_membership.mg.username
+    role     = "maintainer"
+  }
 }
