@@ -31,3 +31,8 @@ variable "repo_format" {
   type        = string
   default = "DOCKER"
 }
+
+variable "key_member_sa" {
+
+  default = ""
+}
