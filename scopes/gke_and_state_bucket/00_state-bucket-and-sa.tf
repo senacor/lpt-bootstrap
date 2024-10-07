@@ -16,7 +16,8 @@ module "state_service_account" {
   name       = "terraform-state-sa"
 
   project_roles = [
-    "roles/storage.admin"
+    "roles/storage.admin",
+    "roles/iam.workloadIdentityUser"
   ]
 }
 
