@@ -3,9 +3,9 @@
 This repository provides infrastructure setup for the lpt schowcase.
 
 ## Scopes
-The setup is devided into 3 scopes to allow independent terraform application:
+The setup is divided into 3 (not fully independent) scopes to allow independent terraform application:
 1) State bucket, state service account, simple GKE cluster
-2) Github (repos, teams)
+2) GitHub (repos, teams)
 3) Application infrastructure (application sa, docker repo, db)
 
 The scope (1) is intended to be applied first, since it also provides the state bucket.
