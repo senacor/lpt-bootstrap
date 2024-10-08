@@ -12,13 +12,13 @@ terraform {
 
   backend "gcs" {
     bucket = "lpt-schulung-bucket-tfstate"
-    prefix = "bootstrap"
+    prefix = "github_and_co"
   }
 }
 
 provider "google" {
   project = var.project_id
-  region  = var.region
+  region  = var.gcp_region
 }
 
 provider "github" {

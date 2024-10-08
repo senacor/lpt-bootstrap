@@ -34,6 +34,7 @@ resource "github_actions_secret" "github_access_token" {
   plaintext_value = var.github_token
 }
 
+/*
 resource "github_actions_secret" "state_bucket_access_public_key" {
   repository      = github_repository.bootstrap.name
   secret_name     = "STATE_BUCKET_ACCESS_PUBLIC_KEY"
@@ -52,14 +53,17 @@ resource "github_actions_secret" "state_bucket_access_wif_provider" {
   plaintext_value = module.github_wif.provider_name
 }
 
+resource "github_actions_secret" "state_service_account_id" {
+  repository      = github_repository.bootstrap.name
+  secret_name     = "STATE_SERVICE_ACCOUNT_ID"
+  plaintext_value = module.state_service_account.id
+}
+*/
+
+
 resource "github_actions_secret" "gcp_project_id" {
   repository      = github_repository.bootstrap.name
   secret_name     = "GCP_PROJECT_ID"
   plaintext_value = var.project_id
 }
 
-resource "github_actions_secret" "state_service_account_id" {
-  repository      = github_repository.bootstrap.name
-  secret_name     = "STATE_SERVICE_ACCOUNT_ID"
-  plaintext_value = module.state_service_account.id
-}

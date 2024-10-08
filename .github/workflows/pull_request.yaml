@@ -1,7 +1,8 @@
 name: CI & Plan
 
 on:
-  pull_request:
+  # disable infra auto application:
+  workflow_dispatch:
 
 jobs:
   build:

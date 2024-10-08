@@ -28,6 +28,7 @@ resource "github_branch_default" "ui_main_branch_default" {
   repository = github_repository.application_ui.name
 }
 
+/*
 resource "github_actions_secret" "ui_gke_access_public_key" {
   repository      = github_repository.application_ui.name
   secret_name     = "GKE_ACCESS_PUBLIC_KEY"
@@ -39,3 +40,4 @@ resource "github_actions_secret" "ui_gke_access_private_key" {
   secret_name     = "GKE_ACCESS_PRIVATE_KEY"
   plaintext_value = google_service_account_key.gke_service_account_key.private_key
 }
+*/
