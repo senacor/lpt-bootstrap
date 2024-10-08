@@ -4,7 +4,7 @@ module "lpt_docker_repo" {
   gcp_region = var.gcp_region
   repo_key_name = "lpt_repo"
   repository_name = "lpt"
-  key_member_sa = module.application_service_account.iam_email
+  application_sa = module.application_service_account.iam_email
 
   depends_on = [
     module.application_service_account.iam_email

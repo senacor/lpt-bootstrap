@@ -7,10 +7,21 @@ resource "google_artifact_registry_repository" "repo" {
   repository_id = var.repository_name
   description   = var.repository_desc
   format        = var.repo_format
-  kms_key_name  = var.repo_key_name
+  project       = data.google_project.project.project_id
+  # Has the form: projects/my-project/locations/my-region/keyRings/my-kr/cryptoKeys/my-key:
+  kms_key_name  = google_kms_crypto_key.key.id
+
   depends_on = [
-    google_kms_crypto_key_iam_policy.crypto_key
+    google_kms_crypto_key_iam_policy.crypto_key.id
   ]
+}
+
+resource "google_artifact_registry_repository_iam_member" "member" {
+  project = var.project_id
+  location = var.gcp_region
+  repository = google_artifact_registry_repository.repo.id
+  role = "roles/artifactregistry.writer"
+  member = var.application_sa
 }
 
 resource "google_kms_key_ring" "keyring" {
@@ -32,7 +43,7 @@ data "google_iam_policy" "cryptoKeyAccess" {
     role = "roles/cloudkms.cryptoKeyEncrypterDecrypter"
 
     members = [
-      "serviceAccount:${var.key_member_sa}",
+      var.application_sa,
       "serviceAccount:workflow-automation@${var.project_id}.iam.gserviceaccount.com",
     ]
   }

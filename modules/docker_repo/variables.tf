@@ -12,7 +12,7 @@ variable "repository_name" {
 variable "repository_desc" {
   description = "Repository Description"
   type        = string
-  default     = ""
+  default     = "LPT Repo"
 }
 
 variable "gcp_region" {
@@ -27,12 +27,12 @@ variable "repo_key_name" {
 }
 
 variable "repo_format" {
-  description = "Repository Description"
+  description = "Repository format"
   type        = string
-  default = "DOCKER"
+  default     = "DOCKER"
 }
 
-variable "key_member_sa" {
-
+variable "application_sa" {
+  description = "Application Service Account requiring access to repo"
   default = ""
 }
