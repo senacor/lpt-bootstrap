@@ -17,6 +17,6 @@ resource "google_firestore_database" "database" {
 
 resource "google_project_iam_member" "firestore_sa_member" {
   project = data.google_project.project.project_id
-  role   = "roles/firebase.developAdmin"
-  member = var.application_sa
+  role    = "roles/firebase.developAdmin"
+  member  = var.application_sa
 }

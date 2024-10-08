@@ -11,11 +11,18 @@ resource "google_artifact_registry_repository" "repo" {
 }
 
 resource "google_artifact_registry_repository_iam_member" "member" {
-  project = var.project_id
-  location = var.gcp_region
+  project    = var.project_id
+  location   = var.gcp_region
   repository = google_artifact_registry_repository.repo.id
-  role = "roles/artifactregistry.writer"
-  member = var.application_sa
+  role       = "roles/artifactregistry.writer"
+  member     = var.application_sa
 }
 
 
+resource "google_artifact_registry_repository_iam_member" "member_workflow" {
+  project    = var.project_id
+  location   = var.gcp_region
+  repository = google_artifact_registry_repository.repo.id
+  role       = "roles/artifactregistry.writer"
+  member     = "serviceAccount:${var.worfklow_sa}"
+}

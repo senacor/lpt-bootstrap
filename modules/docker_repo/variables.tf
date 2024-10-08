@@ -1,4 +1,3 @@
-
 variable "project_id" {
   description = "Project id"
   type        = string
@@ -18,7 +17,7 @@ variable "repository_desc" {
 variable "gcp_region" {
   description = "GCP region"
   type        = string
-  default = "europe-west1"
+  default     = "europe-west1"
 }
 
 variable "repo_key_name" {
@@ -34,5 +33,12 @@ variable "repo_format" {
 
 variable "application_sa" {
   description = "Application Service Account requiring access to repo"
-  default = ""
+  type        = string
+  default     = ""
+}
+
+variable "worfklow_sa" {
+  description = "Application Service Account requiring access to repo"
+  type        = string
+  default     = "workflow-automation@vbdev-436712.iam.gserviceaccount.com"
 }
