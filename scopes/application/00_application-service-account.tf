@@ -6,7 +6,8 @@ module "application_service_account" {
   name       = "lpt-application"
 
   project_roles = [
-    "roles/iam.workloadIdentityUser"
+    "roles/iam.workloadIdentityUser",
+    "roles/artifactregistry.reader"
   ]
 }
 
