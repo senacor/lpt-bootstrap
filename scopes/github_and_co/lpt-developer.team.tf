@@ -22,4 +22,9 @@ resource "github_team_members" "lpt_developers_members" {
     username = data.github_membership.mg.username
     role     = "maintainer"
   }
+
+  members {
+    username = data.github_membership.fleitmann.username
+    role     = "maintainer"
+  }
 }
