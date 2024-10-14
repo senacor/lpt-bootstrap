@@ -9,3 +9,7 @@ data "github_membership" "mg" {
 data "github_membership" "frudisch" {
   username = "frudisch"
 }
+
+data "github_membership" "fleitmann" {
+  username = "fleitmann-senacor"
+}
