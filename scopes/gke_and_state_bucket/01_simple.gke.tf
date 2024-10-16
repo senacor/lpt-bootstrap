@@ -74,6 +74,10 @@ module "gke" {
     {
       cidr_block   = "88.217.239.9/32" # Nosplit VPN IP PSI
       display_name = "PSI"
+    },
+    {
+      cidr_block   = "140.82.112.0/20"
+      display_name = "Github_Action"
     }
   ]
 }
