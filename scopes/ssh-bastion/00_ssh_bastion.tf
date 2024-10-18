@@ -2,12 +2,12 @@ data "google_project" "project" {
   project_id = var.project_id
 }
 
-data " google_compute_network" "gke_vpc" {
+data "google_compute_network" "gke_vpc" {
   name = var.vpc_name
   project = data.google_project.project.id
 }
 
-data " google_compute_subnetwork" "master_subnet" {
+data "google_compute_subnetwork" "master_subnet" {
   name = var.subnet_name
   project = data.google_project.project.id
 }
