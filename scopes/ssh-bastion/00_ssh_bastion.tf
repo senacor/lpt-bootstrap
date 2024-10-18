@@ -2,6 +2,10 @@ data "google_project" "project" {
   project_id = var.project_id
 }
 
+data "google_compute_zones" "available" {
+  project = data.google_project.project.project_id
+}
+
 data "google_compute_network" "gke_vpc" {
   name = var.vpc_name
   project = data.google_project.project.project_id
@@ -15,7 +19,7 @@ data "google_compute_subnetwork" "master_subnet" {
 resource "google_compute_instance" "bastion_host" {
   name         = "bastion-host"
   machine_type = "n1-standard-1"
-  #zone         = "${var.gcp_region}-a"
+  zone         = data.google_compute_zones.available.names[0]
 
   boot_disk {
     initialize_params {
