@@ -8,7 +8,7 @@ terraform {
 
   backend "gcs" {
     bucket = "lpt-schulung-bucket-tfstate"
-    prefix = "gke_and_state_bucket"
+    prefix = "ssh_bastion"
   }
 }
 

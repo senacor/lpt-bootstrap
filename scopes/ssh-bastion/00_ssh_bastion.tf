@@ -4,12 +4,12 @@ data "google_project" "project" {
 
 data "google_compute_network" "gke_vpc" {
   name = var.vpc_name
-  project = data.google_project.project.id
+  project = data.google_project.project.project_id
 }
 
 data "google_compute_subnetwork" "master_subnet" {
   name = var.subnet_name
-  project = data.google_project.project.id
+  project = data.google_project.project.project_id
 }
 
 
