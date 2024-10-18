@@ -15,7 +15,7 @@ data "google_compute_subnetwork" "master_subnet" {
 resource "google_compute_instance" "bastion_host" {
   name         = "bastion-host"
   machine_type = "n1-standard-1"
-  zone         = "${var.gcp_region}-a"
+  #zone         = "${var.gcp_region}-a"
 
   boot_disk {
     initialize_params {
