@@ -20,6 +20,7 @@ resource "google_compute_instance" "bastion_host" {
   name         = "bastion-host"
   machine_type = "e2-standard-2"
   zone         = data.google_compute_zones.available.names[0]
+  allow_stopping_for_update = true
 
   boot_disk {
     initialize_params {
