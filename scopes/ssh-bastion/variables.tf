@@ -19,7 +19,7 @@ variable "vpc_name" {
 variable "subnet_name" {
   description = "Subnet Name"
   type        = string
-  default     = "simple-autopilot-private-master-subnet"
+  default     = "simple-autopilot-private-subnet"
 }
 
 
