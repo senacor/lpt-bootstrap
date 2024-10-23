@@ -3,7 +3,7 @@ data "google_dns_managed_zone" "lpt" {
 }
 
 resource "google_dns_record_set" "creditapplication-service" {
-  name         = "creditapplication.api.lpt.senacor.com."  # Replace with your subdomain
+  name         = "creditapplication.api.lpt.senacor.com."
   managed_zone = data.google_dns_managed_zone.lpt.name
   type         = "A"
   ttl          = 300
