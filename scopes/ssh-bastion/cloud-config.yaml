@@ -1,0 +1,12 @@
+groups:
+  - lpt
+
+users:
+  - default
+  - name: terraform
+    gecos: lpt
+    shell: /bin/bash
+    primary_group: lpt
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups: users
+    lock_passwd: false
