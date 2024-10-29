@@ -149,7 +149,6 @@ jobs:
           terraform -chdir="$TF_WORK_DIR" apply -input=false tfplan
           terraform output
 
-
   plan-apply-application:
     name: Plan and potentially apply for scope application infra
     if: ${{ github.event.inputs.environment == 'dev' && github.event.inputs.scope == 'application_infrastructure'}}
@@ -179,7 +178,6 @@ jobs:
         run: |
           terraform -chdir="$TF_WORK_DIR" plan -input=false -out=tfplan \
             -var-file "../../environments/dev.tfvars" \
-            -var "github_token=$GH_API_TOKEN" \
             -var "project_id=$PROJECT_ID"
       - name: terraform apply
         if: ${{ github.event.inputs.apply == 'apply!' }}
